@@ -1,0 +1,25 @@
+.my-alert{
+  margin: auto;
+  padding: 16px;
+  width: 100%;
+  background-color: #eeeeee;
+  border-radius: 4px;
+  max-width: 500px;
+}
+
+.my-alert p {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #fff;
+}
+
+.my-alert-amount{
+  @extend .my-alert;
+  background-color: #343a40;
+}
+
+.my-alert-error{
+  @extend .my-alert;
+  background-color: rgb(243, 142, 142);
+}
+

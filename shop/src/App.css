@@ -1,0 +1,46 @@
+body {
+  margin-top: 80px;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header > .nav {
+  margin: 12px;
+  border-radius: 6px;
+}
+
+.App-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* =========================================== */
+
+/* .background {
+  background-image: url("./img/background.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+} */
+
+/* =========================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
