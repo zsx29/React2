@@ -5,12 +5,15 @@ import "./App.css";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
+import { CSSTransition } from 'react-transition-group';
+
 
 // Components-Grp
 import Data from "./components/Data";
 import Card from "./components/Card";
 import Detail from "./components/Detail";
 import Login from "./components/Login";
+import Cart from "./components/Cart";
 
 // Bootstrap-import
 import {
@@ -84,7 +87,7 @@ import Col from 'react-bootstrap/Col'
     }
 
   * styled-components
-    - import styled from 'styled-components';
+    todo> import styled from 'styled-components';
     - 사용법 : let 작명 = styled.div``;
     - 미리 스타일을 만들어 놓은 컴포넌트를 사용한다.
     ? 선택사항이니 참고만 하자.
@@ -114,13 +117,43 @@ import Col from 'react-bootstrap/Col'
     - useEffect(() => { axios.get().then().catch() }, []);
     - 위처럼 useEffect()안에 추가해주면 등장시에만 한번 실행되고 끝난다.
 
-  Todo> Component가 많을 때 props쓰기 싫으면 Context API 사용
+    Todo> Component가 많을 때 props쓰기 싫으면 Context API 사용
     - props 전송 없이도 하위 컴포넌트들 끼리 state 값을 똑같이 공유할 수 있다.
     1. Context 세팅 = createContext() 함수를 이용해서 변수생성  
       - let 이름Context = React.createContext();
     2. 컴포넌트로 state 값 공유를 원하는 컴포넌트들을 <범위></범위>로 전부 감쌉니다.
       - value={ 공유할state }
+
+  * react-transition-group
+    todo> npm install react-transition-group
+    todo> import {CSSTransition} from 'react-transition-group';
+    - <CSSTransition></CSSTransition> 으로 감싸준 뒤  in={true} classNames="wow" timeout={500} 속성을 정해준다.
+    - in : 스위치,
+      classNames : 이름,
+      timeout : 작동시간
+
+    - CSS 파일에서 애니메이션 작동방식/정의를 내려준다. 
+    - .작명-enter        : 컴포넌트 등장시작시 적용할 CSS
+    - .작명-enter-active : 컴포넌트 등장중일시 적용할 CSS
+
+  * redux
+    todo> npm install redux react-redux 설치
+    todo> index.js 이동
+    todo> import { Provider } from 'react-redux';
+    todo> import { createStore } from 'redux';
+    todo> <App/> 상위에 <Provider></Provider>로 감싸준다.
+    todo> redux에서 state를 하나 만드려면 createStore()함수를 사용한다.
+    todo> let store = createStore(() => { 데이터 }) 
+    todo> <Provider store={ store }></Provider>
+    todo> state 불러오는 방법은 사용하는 컴포넌트 상위에 
+    todo> import {connect} from 'react-redux';
+    
+    - 사용하는 이유 : props 전송 없이도 모든 컴포넌트들이 state를 사용할 수 있게 만들어준다.
+    - Context API와 같은 역할을 한다.
+    - redux : 데이터를 관리하는 기능
+    - react-redux : 리덕스를 리액트에서 쓸 수 있게 도와주는 기능을 제공한다.
 */
+
 
 let amountContext = React.createContext();
 
@@ -141,7 +174,7 @@ function App() {
         setRoding(true)
         axios
         .get("https://codingapple1.github.io/shop/data2.json")
-        .then((result) => { setShoes([...shoes,...result.datas]), setRoding(false) }) // 요청성공시 실행할 코드, result : 실제 데이터, 성공한 이유, 다양한 정보
+        .then((result) => { setShoes([...shoes,...result.data]), setRoding(false) }) // 요청성공시 실행할 코드, result : 실제 데이터, 성공한 이유, 다양한 정보
         .catch(() => { SetError(true), setRoding(true) })                            // 요청실패시 실행할 코드 
         }}>
         More <Badge variant="light">9+</Badge>
@@ -183,7 +216,10 @@ function App() {
                 <Link to="/">Home</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/Login">Login</Link>
+                <Link to="/login">Login</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to="/cart">Cart</Link>
               </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -260,6 +296,10 @@ function App() {
 
           <Route path="/detail/:id">
             <Detail shoes={ shoes } amount={amount} setAmount={setAmount}></Detail>
+          </Route>
+
+          <Route path="/cart">
+            <Cart></Cart>
           </Route>
 
           <Route path="/:id"></Route>

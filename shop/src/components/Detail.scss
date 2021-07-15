@@ -23,3 +23,13 @@
   background-color: rgb(243, 142, 142);
 }
 
+.transition-enter{
+  opacity: 0;
+  
+}
+
+.transition-enter-active{
+  opacity: 1;
+  transition: all 400ms;
+  
+}
