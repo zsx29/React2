@@ -1,8 +1,11 @@
 // lib-Grp
+import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { CSSTransition } from 'react-transition-group';
-import {connect} from 'react-redux';
+
+// redux
+import { connect } from 'react-redux';
 
 // css
 import "./Detail.scss";
@@ -11,6 +14,8 @@ import "./Detail.scss";
 import { Table } from "react-bootstrap";
 
 function Cart(props) {
+  
+  
   return(
     <div className="container">
       <h1>Cart</h1>
@@ -20,39 +25,46 @@ function Cart(props) {
           <Table striped bordered hover>
               <tr>
                 <th>#</th>
-                <th>상품정보</th>
-                <th>옵션</th>
-                <th>상품금액</th>
-                <th>배송비</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>변경</th>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>{props.state[0].name}</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td colSpan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
+              {
+                props.state.map((a, i) => {
+                  return(
+                    <tr key={ i }>
+                      <td>{a.id}</td>
+                      <td>{a.name}</td>
+                      <td>{a.quan}</td>
+                      <td>
+                        <button onClick={() => {props.dispatch({type : "수량증가"})}}> + </button>
+                        <button onClick={() => {props.dispatch({type : "수량감소"})}}> - </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              }
           </Table>
+          {
+            props.alertOpen == true
+            ? (<div className="my-alert-error">
+                <p>지금 구매하시면 20% 할인</p>
+                <button onClick={() => {props.dispatch({type : "alertClose"})}}>닫기</button>
+              </div>)
+            : null
+          }
+          </div>
         </div>
       </div>
-    </div>
   );
 }
 
-function state를props(state) {
-  return { state : state }
+function state를props화(state) {
+  console.log(state)
+  return { 
+    state : state.reducer,
+    alertOpen : state.reducer2
+  }
 }
 
-export default connect(state를props)(Cart);
+export default connect(state를props화)(Cart);

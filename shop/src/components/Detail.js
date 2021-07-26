@@ -9,6 +9,7 @@ import "./Detail.scss";
 // bootstarp-Grp
 import { Button, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 
 function Detail(props) {
@@ -66,7 +67,7 @@ function Detail(props) {
                     <Button variant="outline-danger" onClick={ () => { history.goBack() }}>
                         뒤로가기
                     </Button>&nbsp;
-                    <Button variant="outline-primary" onClick={() => { props.setAmount(props.amount - 1) }} >
+                    <Button variant="outline-primary" onClick={() => { props.setAmount(props.amount - 1), props.dispatch({type : "항목추가"}) }} >
                         주문하기
                     </Button>&nbsp;
                     <Link to="/cart/:id">
@@ -127,4 +128,11 @@ function LinkTab(props) {
         
 }
 
-export default Detail;
+function state를props화(state) {
+    return {
+        state : state.reducer,
+        
+    }
+}
+
+export default connect(state를props화)(Detail);

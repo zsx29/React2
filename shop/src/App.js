@@ -140,18 +140,29 @@ import Col from 'react-bootstrap/Col'
     todo> npm install redux react-redux 설치
     todo> index.js 이동
     todo> import { Provider } from 'react-redux';
-    todo> import { createStore } from 'redux';
     todo> <App/> 상위에 <Provider></Provider>로 감싸준다.
     todo> redux에서 state를 하나 만드려면 createStore()함수를 사용한다.
+    todo> import { createStore } from 'redux';
     todo> let store = createStore(() => { 데이터 }) 
     todo> <Provider store={ store }></Provider>
-    todo> state 불러오는 방법은 사용하는 컴포넌트 상위에 
-    todo> import {connect} from 'react-redux';
+    todo> state 꺼내쓰는 법은 사용하는 컴포넌트 상위에 import {connect} from 'react-redux';
+    todo> state 사용할 컴포넌트 밑에 function 생성
     
     - 사용하는 이유 : props 전송 없이도 모든 컴포넌트들이 state를 사용할 수 있게 만들어준다.
     - Context API와 같은 역할을 한다.
     - redux : 데이터를 관리하는 기능
     - react-redux : 리덕스를 리액트에서 쓸 수 있게 도와주는 기능을 제공한다.
+
+  * reducer
+    - reducer 함수를 만들고 그곳에 데이터를 수정하는 방법을 정의한다.
+      그리고 원하는 곳에서 dispatch() 라는 함수를 써서 reducer에게 수정해달라고 요청을 하는 방식이다.
+      reducer을 사용하지 않으면 redux를 쓰는 이점이 없다.
+    - 사용방법 : (1) state 데이터의 수정방법을 index.js에다가 미리 정의해놓는다(일명 reducer)
+               (2) index.js에게 수정 해달라 요청
+    - reducer는 function안에 state 초기값과 state 데이터 수정방법이 들어가있는 함수이다.
+    
+
+
 */
 
 
